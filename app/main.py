@@ -48,6 +48,27 @@ def read_root():
         }
     }
 
+@app.get("/health")
+def health_check():
+    """Health check endpoint for Docker and monitoring"""
+    try:
+        # Test database connection
+        db.get_all_rooms()
+        return {
+            "status": "healthy",
+            "service": settings.APP_NAME,
+            "version": settings.APP_VERSION,
+            "database": "connected"
+        }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "service": settings.APP_NAME,
+            "version": settings.APP_VERSION,
+            "database": "disconnected",
+            "error": str(e)
+        }
+
 # Run the application
 if __name__ == "__main__":
     import uvicorn

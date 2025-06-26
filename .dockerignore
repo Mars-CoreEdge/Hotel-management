@@ -1,0 +1,76 @@
+# Git
+.git
+.gitignore
+README.md
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.pytest_cache
+nosetests.xml
+.venv
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database files (if you want to exclude existing data)
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation
+docs/
+*.md
+
+# Test files
+tests/
+pytest.ini
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Frontend (if you don't want to include it in backend container)
+fruit-store-ui/
+node_modules/
+
+# Docker files themselves
+Dockerfile*
+docker-compose*
+.dockerignore 
