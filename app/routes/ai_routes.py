@@ -7,7 +7,10 @@ from pydantic import BaseModel
 from ..services.ai_service import AIService
 
 router = APIRouter(prefix="/ai", tags=["ai"])
-ai_service = AIService()
+
+# Initialize AI service lazily to ensure environment variables are loaded
+def get_ai_service():
+    return AIService()
 
 class AIMessageCreate(BaseModel):
     """Model for AI chat messages"""
@@ -21,6 +24,8 @@ class AIBookingLookup(BaseModel):
 @router.post("/chat", response_model=dict)
 def ai_chat(chat_data: AIMessageCreate):
     """Chat with AI reception assistant"""
+    ai_service = get_ai_service()
+    
     if not ai_service.openai_client:
         return {
             "success": False,
@@ -45,6 +50,7 @@ def ai_chat(chat_data: AIMessageCreate):
 def get_ai_hotel_status():
     """Get current hotel status for AI context"""
     try:
+        ai_service = get_ai_service()
         hotel_data = ai_service.get_hotel_data()
         return {
             "success": True,
@@ -60,6 +66,7 @@ def get_ai_hotel_status():
 def ai_booking_lookup(lookup_data: AIBookingLookup):
     """Look up booking information via AI"""
     try:
+        ai_service = get_ai_service()
         booking_info = ai_service.get_booking_info(lookup_data.email)
         return {
             "success": True,
