@@ -4,23 +4,20 @@ AI Reception Service for Grand Hotel Management System
 Provides intelligent chat assistance for hotel bookings and information
 """
 
+from dotenv import load_dotenv
+import os
+
+# Load environment variables at module level
+load_dotenv()
+
 from openai import OpenAI
 import json
 import re
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
-import os
 from ..database.database import Database
 from ..services.booking_service import BookingService
 from ..services.guest_service import GuestService
-
-# OpenAI Configuration - Uses environment variable for security
-OPENAI_CONFIG = {
-    "api_key": os.getenv("OPENAI_API_KEY", "your-openai-api-key-here"),
-    "model": "gpt-3.5-turbo",
-    "max_tokens": 500,
-    "temperature": 0.7
-}
 
 # Hotel Information for AI Context
 HOTEL_CONTEXT = {
@@ -77,11 +74,21 @@ class AIService:
         self.guest_service = GuestService()
         self.initialize_openai()
     
+    def get_openai_config(self):
+        """Get OpenAI configuration dynamically from environment variables"""
+        return {
+            "api_key": os.getenv("OPENAI_API_KEY", "your-openai-api-key-here"),
+            "model": os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
+            "max_tokens": int(os.getenv("OPENAI_MAX_TOKENS", "500")),
+            "temperature": float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+        }
+    
     def initialize_openai(self):
         """Initialize OpenAI client"""
         try:
-            if OPENAI_CONFIG["api_key"] and OPENAI_CONFIG["api_key"] != "your-openai-api-key-here":
-                self.openai_client = OpenAI(api_key=OPENAI_CONFIG["api_key"])
+            config = self.get_openai_config()
+            if config["api_key"] and config["api_key"] != "your-openai-api-key-here":
+                self.openai_client = OpenAI(api_key=config["api_key"])
                 print("✅ OpenAI client initialized successfully")
             else:
                 print("⚠️  OpenAI API key not configured")
@@ -476,10 +483,10 @@ class AIService:
             
             # Get AI response
             response = self.openai_client.chat.completions.create(
-                model=OPENAI_CONFIG["model"],
+                model=self.get_openai_config()["model"],
                 messages=messages,
-                max_tokens=OPENAI_CONFIG["max_tokens"],
-                temperature=OPENAI_CONFIG["temperature"]
+                max_tokens=self.get_openai_config()["max_tokens"],
+                temperature=self.get_openai_config()["temperature"]
             )
             
             ai_response = response.choices[0].message.content.strip()
@@ -548,7 +555,7 @@ class AIService:
                 "response": ai_response,
                 "success": True,
                 "timestamp": datetime.now().isoformat(),
-                "model_used": OPENAI_CONFIG["model"],
+                "model_used": self.get_openai_config()["model"],
                 "booking_processed": booking_request.get("found", False),
                 "cancellation_processed": cancel_request.get("found", False)
             }

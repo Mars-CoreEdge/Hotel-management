@@ -16,6 +16,16 @@ class Settings:
     # Database Configuration
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///hotel.db")
     
+    # Supabase Configuration
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
+    SUPABASE_ANON_KEY: str = os.getenv("SUPABASE_ANON_KEY", "")
+    SUPABASE_SERVICE_ROLE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    
+    # JWT Configuration
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "your-secret-key-change-in-production")
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+    
     # CORS Configuration
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",
@@ -42,7 +52,7 @@ class Settings:
     HOTEL_NAME: str = os.getenv("HOTEL_NAME", "Grand Hotel")
     HOTEL_ADDRESS: str = os.getenv("HOTEL_ADDRESS", "123 Luxury Avenue, Hotel District, City 12345")
     HOTEL_PHONE: str = os.getenv("HOTEL_PHONE", "+1-555-HOTEL-1")
-    HOTEL_EMAIL: str = os.getenv("HOTEL_EMAIL", EMAIL_ADDRESS)
+    HOTEL_EMAIL: str = os.getenv("EMAIL_ADDRESS", EMAIL_ADDRESS)
     HOTEL_WEBSITE: str = os.getenv("HOTEL_WEBSITE", "https://grandhotel.com")
     
     # Admin Configuration
