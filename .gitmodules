@@ -1,0 +1,5 @@
+[submodule "fruit-store-ui"]
+	path = fruit-store-ui
+	url = https://github.com/Mars-CoreEdge/fruit-store-ui.git
+	branch = auth
+
