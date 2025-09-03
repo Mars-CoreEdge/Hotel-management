@@ -60,7 +60,7 @@ class Settings:
     ENABLE_ADMIN_NOTIFICATIONS: bool = os.getenv("ENABLE_ADMIN_NOTIFICATIONS", "True").lower() == "true"
     
     # Development/Debug Settings
-    DEBUG: bool = os.getenv("DEBUG", "False").lower() == "true"
+    DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
     RELOAD: bool = os.getenv("RELOAD", "False").lower() == "true"
     
     class Config:

@@ -6,6 +6,22 @@ from datetime import datetime
 # Create base class for all models
 Base = declarative_base()
 
+class UserProfile(Base):
+    """SQLAlchemy model for user profiles"""
+    __tablename__ = 'user_profiles'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(String, unique=True, nullable=False)  # Supabase user ID
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    phone = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    age = Column(Integer, nullable=True)
+    profile_picture_url = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 class Room(Base):
     """SQLAlchemy model for rooms"""
     __tablename__ = 'rooms'

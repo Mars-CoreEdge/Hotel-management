@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from typing import List, Optional
+from sqlalchemy.orm import sessionmaker, Session
+from typing import List, Optional, Generator
 from datetime import datetime
 
 class Database:
@@ -274,4 +274,15 @@ class Database:
             "total_price": booking.total_price,
             "status": booking.status,
             "created_at": booking.created_at.isoformat() if booking.created_at else None
-        } 
+        }
+
+# Create a global database instance
+database = Database()
+
+def get_db() -> Generator[Session, None, None]:
+    """FastAPI dependency to get database session"""
+    session = database.SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()

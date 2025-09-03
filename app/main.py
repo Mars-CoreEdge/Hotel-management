@@ -6,7 +6,7 @@ load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import room_routes, guest_routes, booking_routes, customer_routes, ai_routes, auth_routes
+from .routes import room_routes, guest_routes, booking_routes, customer_routes, ai_routes, auth_routes, profile_routes
 from .database.database import Database
 from .models.database_models import Base
 from .config.settings import settings
@@ -33,6 +33,7 @@ Base.metadata.create_all(bind=db.engine)
 
 # Include routers
 app.include_router(auth_routes.router)
+app.include_router(profile_routes.router)
 app.include_router(room_routes.router)
 app.include_router(guest_routes.router)
 app.include_router(booking_routes.router)
@@ -47,6 +48,7 @@ def read_root():
         "version": settings.APP_VERSION,
         "endpoints": {
             "auth": "/auth",
+            "profile": "/profile",
             "rooms": "/rooms",
             "guests": "/guests",
             "bookings": "/bookings",
