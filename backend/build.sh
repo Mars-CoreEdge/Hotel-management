@@ -45,7 +45,7 @@ print_status "Docker and Docker Compose are available"
 # Create .env file if it doesn't exist
 if [ ! -f ".env" ]; then
     print_warning ".env file not found. Creating from template..."
-    cp env.template .env
+    cp ../env.template .env
     print_warning "Please edit .env file with your configuration before deployment!"
 fi
 

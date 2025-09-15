@@ -233,7 +233,6 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
-
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
@@ -343,9 +342,11 @@ yarn-error.log*
 .npm
 .yarn
 
-# React Build
-fruit-store-ui/build/
-fruit-store-ui/dist/
+# React Build (updated for new structure)
+frontend/build/
+frontend/dist/
+build/
+dist/
 
 # Environment variables
 .env.local
@@ -353,10 +354,47 @@ fruit-store-ui/dist/
 .env.test.local
 .env.production.local
 
-# API Keys (Security)
+# API Keys and Secrets (Security)
 *_api_key.txt
 *_secret.txt
 config_secret.py
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Environment files with sensitive data
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.backup
+.env.bak
+
+# Supabase credentials
+supabase_credentials.json
+supabase_config.json
+
+# Database credentials
+database_credentials.json
+db_config.json
+
+# JWT secrets
+jwt_secret.txt
+jwt_private_key.pem
+jwt_public_key.pem
+
+# SSL certificates
+*.crt
+*.cert
+ssl/
+certs/
+
+# Backup files with sensitive data
+*.backup
+*.bak
+backup/
 
 # Misc
 *.bak

@@ -22,7 +22,7 @@ class Settings:
     SUPABASE_SERVICE_ROLE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
     
     # JWT Configuration
-    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "your-secret-key-change-in-production")
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "")
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     
@@ -44,7 +44,7 @@ class Settings:
     SMTP_SERVER: str = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
     EMAIL_ADDRESS: str = os.getenv("EMAIL_ADDRESS", "grandhotel@gmail.com")
-    EMAIL_PASSWORD: str = os.getenv("EMAIL_PASSWORD", "demo-password-12345")
+    EMAIL_PASSWORD: str = os.getenv("EMAIL_PASSWORD", "")
     USE_TLS: bool = os.getenv("USE_TLS", "True").lower() == "true"
     EMAIL_DEMO_MODE: bool = os.getenv("EMAIL_DEMO_MODE", "True").lower() == "true"
     

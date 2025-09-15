@@ -29,7 +29,7 @@ echo ✅ Docker and Docker Compose are available
 REM Create .env file if it doesn't exist
 if not exist ".env" (
     echo ⚠️ .env file not found. Creating from template...
-    copy env.template .env
+    copy ..\env.template .env
     echo ⚠️ Please edit .env file with your configuration before deployment!
 )
 
